@@ -2,11 +2,18 @@
 
 public class CameraController : MonoBehaviour 
 {
+    bool isMoving = true;
+
     public float panSpeed = 30f;
     public float panBorderThickness = 10f;
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            isMoving = !isMoving;
+        
+        if (!isMoving) return;
+
         if (Input.GetKey(KeyCode.W) || Input.mousePosition.y >= Screen.height - panBorderThickness)
             transform.Translate(Vector3.forward * panSpeed * Time.deltaTime, Space.World);
 
