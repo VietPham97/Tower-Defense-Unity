@@ -3,6 +3,7 @@
 public class Node : MonoBehaviour 
 {
     public Color hoverColor;
+    public Vector3 positionOffset = new Vector3(0f, 0.5f, 0f);
 
     GameObject turret;
 
@@ -26,7 +27,7 @@ public class Node : MonoBehaviour
         }
 
         GameObject turretToBuild = BuildManager.instance.TurretToBuild;
-        turret = Instantiate(turretToBuild, transform.position, transform.rotation) as GameObject;
+        turret = Instantiate(turretToBuild, transform.position + positionOffset, transform.rotation) as GameObject;
     }
 
 
