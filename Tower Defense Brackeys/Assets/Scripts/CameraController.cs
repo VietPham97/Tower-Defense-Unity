@@ -19,22 +19,38 @@ public class CameraController : MonoBehaviour
             isMoving = !isMoving;
         
         if (!isMoving) return;
+		
+        Vector3 camPos = transform.position;
 
         if (Input.GetKey(KeyCode.W) || Input.mousePosition.y >= Screen.height - panBorderThickness)
-            transform.Translate(Vector3.forward * panSpeed * Time.deltaTime, Space.World);
+        {
+            Vector3 panDir = Vector3.forward;
+            camPos.z += panDir.magnitude * panSpeed * Time.deltaTime;
+            camPos.z = Mathf.Min(camPos.z, 35f);
+        }
 
-		if (Input.GetKey(KeyCode.S) || Input.mousePosition.y <= panBorderThickness)
-            transform.Translate(Vector3.back * panSpeed * Time.deltaTime, Space.World);
+        if (Input.GetKey(KeyCode.S) || Input.mousePosition.y <= panBorderThickness)
+        {
+            Vector3 panDir = Vector3.back;
+			camPos.z -= panDir.magnitude * panSpeed * Time.deltaTime;
+            camPos.z = Mathf.Max(camPos.z, -40f);
+        }
 
         if (Input.GetKey(KeyCode.D) || Input.mousePosition.x >= Screen.width - panBorderThickness)
-            transform.Translate(Vector3.right * panSpeed * Time.deltaTime, Space.World);
+        {
+            Vector3 panDir = Vector3.right;
+            camPos.x += panDir.magnitude * panSpeed * Time.deltaTime;
+            camPos.x = Mathf.Min(camPos.x, 30f);
+        }
 
         if (Input.GetKey(KeyCode.A) || Input.mousePosition.x <= panBorderThickness)
-            transform.Translate(Vector3.left * panSpeed * Time.deltaTime, Space.World);
+        {
+            Vector3 panDir = Vector3.left;
+			camPos.x -= panDir.magnitude * panSpeed * Time.deltaTime;
+            camPos.x = Mathf.Max(camPos.x, -30f);
+        }
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-
-        Vector3 camPos = transform.position;
 
         camPos.y -= scroll * scollMultiplier * scrollSpeed * Time.deltaTime;
         camPos.y = Mathf.Clamp(camPos.y, minY, maxY);
