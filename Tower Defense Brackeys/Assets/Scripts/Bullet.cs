@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour
     Transform target;
 
     public float speed = 70f;
+    public float explosionRadius;
     public GameObject impactEffect;
 
 
@@ -40,6 +41,39 @@ public class Bullet : MonoBehaviour
         GameObject effectInstance = Instantiate(impactEffect, transform.position, transform.rotation) as GameObject;
         Destroy(effectInstance, 2f);
 
+        if (explosionRadius > 0)
+        {
+            Explode();
+        }
+        else
+        {
+            Damage(target);
+        }
+
         Destroy(gameObject);
+    }
+
+    private void Explode()
+    {
+        Collider[] explosionSphere = Physics.OverlapSphere(transform.position, explosionRadius);
+
+        foreach (var col in explosionSphere)
+        {
+            if (col.tag == "Enemy")
+            {
+                Damage(col.transform);
+            }
+        }
+    }
+
+    void Damage(Transform enemy)
+    {
+        Destroy(enemy.gameObject);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
 }
