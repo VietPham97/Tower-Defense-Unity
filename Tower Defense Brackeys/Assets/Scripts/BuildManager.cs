@@ -3,7 +3,7 @@
 public class BuildManager : MonoBehaviour 
 {
     public static BuildManager instance;
-	public GameObject standardTurretPrefab, missileLauncherPrefab, laserTurretPrefab;
+
 
     private void Awake()
     {
@@ -15,8 +15,8 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
-    GameObject turretToBuild;
-    public GameObject TurretToBuild
+    TurretBlueprint turretToBuild;
+    public TurretBlueprint TurretToBuild
     {
         get
         {
@@ -28,5 +28,9 @@ public class BuildManager : MonoBehaviour
         }
     }
 
-
+    public void BuildTurretOn(Node node)
+    {
+        GameObject turret = Instantiate(turretToBuild.prefab, node.GetBuildPosition(), Quaternion.identity) as GameObject;
+        node.turret = turret;
+    }
 }
