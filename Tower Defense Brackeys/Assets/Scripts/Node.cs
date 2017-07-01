@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 public class Node : MonoBehaviour 
 {
     public Color hoverColor;
+	public Color notEnoughMoneyColor;
     public Vector3 positionOffset = new Vector3(0f, 0.5f, 0f);
 
     [Header("Optional")]
@@ -13,7 +14,6 @@ public class Node : MonoBehaviour
     Color startColor;
 
     BuildManager buildManager;
-
 
     private void Start()
     {
@@ -56,8 +56,16 @@ public class Node : MonoBehaviour
         
         if (buildManager.TurretToBuild == null)
 			return;
-        
-        rend.material.color = hoverColor;
+
+        if (buildManager.HasEnoughMoney)
+        {
+			rend.material.color = hoverColor;
+        }
+        else
+        {
+            rend.material.color = notEnoughMoneyColor;
+        }
+
     }
 
 
