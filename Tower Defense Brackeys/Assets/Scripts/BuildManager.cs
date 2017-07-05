@@ -16,6 +16,8 @@ public class BuildManager : MonoBehaviour
     }
 
     public TurretBlueprint TurretToBuild { get; set; }
+    Node nodeToSelect;
+    public NodeUI nodeUI;
 
     public bool HasEnoughMoney
 	{
@@ -42,5 +44,18 @@ public class BuildManager : MonoBehaviour
         Destroy(bEffect, 5f);
 
         //Debug.Log("Turret build! Money left: " + PlayerStats.Money);
+    }
+
+	public void SelectNode(Node node)
+    {
+        nodeToSelect = node;
+        TurretToBuild = null;
+
+        nodeUI.SetTarget(node);
+    }
+	
+    public void ResetSelectedNode()
+    {
+        nodeToSelect = null;
     }
 }

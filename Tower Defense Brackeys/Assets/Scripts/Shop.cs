@@ -16,19 +16,19 @@ public class Shop : MonoBehaviour
 
     public void SelectStandardTurret()
     {
-        //Debug.Log("Standard Turret Selected");
         buildManager.TurretToBuild = standardTurret;
+        buildManager.ResetSelectedNode();
     }
 
 	public void SelectMissileLauncher()
 	{
-		//Debug.Log("Missile Launcher Selected");
         buildManager.TurretToBuild = missileLauncher;
+        buildManager.ResetSelectedNode();
 	}
 
 	public void SelectLaserBeamer()
 	{
-		//Debug.Log("Missile Launcher Selected");
         buildManager.TurretToBuild = laserBeamer;
+        buildManager.ResetSelectedNode();
 	}
 }

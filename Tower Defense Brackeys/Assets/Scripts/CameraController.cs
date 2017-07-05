@@ -2,7 +2,7 @@
 
 public class CameraController : MonoBehaviour 
 {
-    bool isMoving = true;
+    bool isMoving;
 
     public float panSpeed = 30f;
     public float panBorderThickness = 10f;
