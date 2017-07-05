@@ -3,8 +3,7 @@
 public class Enemy : MonoBehaviour 
 {
     public float speed = 10f;
-
-    public int health = 100;
+    public float health = 100f;
 
     public int moneyReward = 50;
 
@@ -18,7 +17,7 @@ public class Enemy : MonoBehaviour
         target = Waypoints.points[0];
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         health -= amount;
 
