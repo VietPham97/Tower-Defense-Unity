@@ -4,6 +4,8 @@ public class GameManager : MonoBehaviour
 {
     bool gameOver;
 
+    public GameObject gameOverUI; // Assign GameOverUI in the Hirerachy to this field in the Inspector
+
     private void Update()
     {
         if (gameOver) return;
@@ -17,6 +19,6 @@ public class GameManager : MonoBehaviour
     private void EndGame()
     {
         gameOver = true;
-        Debug.Log("Game Over!");
+        gameOverUI.SetActive(true);
     }
 }
