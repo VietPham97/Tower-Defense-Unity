@@ -2,13 +2,23 @@
 
 public class GameManager : MonoBehaviour 
 {
-    bool gameOver;
+    public static bool gameOver;
 
     public GameObject gameOverUI; // Assign GameOverUI in the Hirerachy to this field in the Inspector
 
+    private void Start()
+    {
+        gameOver = false;  // reset this to false because it is static and its value true will exist in the entire game
+    }
+;
     private void Update()
     {
         if (gameOver) return;
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            EndGame();
+        }
 
         if (PlayerStats.Lives <= 0)
         {

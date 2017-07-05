@@ -15,6 +15,13 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+		//enabled &= !GameManager.gameOver; short term for if there is only 1 line enabled = false inside if statement
+        if (GameManager.gameOver)
+        {
+			enabled = false;
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
             isMoving = !isMoving;
         
