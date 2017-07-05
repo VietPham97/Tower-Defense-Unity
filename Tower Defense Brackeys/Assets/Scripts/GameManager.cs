@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     {
         gameOver = false;  // reset this to false because it is static and its value true will exist in the entire game
     }
-;
+
     private void Update()
     {
         if (gameOver) return;
