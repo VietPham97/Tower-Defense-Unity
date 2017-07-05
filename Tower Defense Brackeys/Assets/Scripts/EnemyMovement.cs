@@ -23,6 +23,8 @@ public class EnemyMovement : MonoBehaviour
 		{
 			GetNextWaypoint();
 		}
+
+        enemy.speed = enemy.startSpeed; // reset the current speed to the startSpeed to fix the slowing issue when out of laser range.
 	}
 
 
