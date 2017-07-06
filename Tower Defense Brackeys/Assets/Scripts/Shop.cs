@@ -17,18 +17,18 @@ public class Shop : MonoBehaviour
     public void SelectStandardTurret()
     {
         buildManager.TurretToBuild = standardTurret;
-        buildManager.ResetSelectedNode();
+        buildManager.DeselectNode();
     }
 
 	public void SelectMissileLauncher()
 	{
         buildManager.TurretToBuild = missileLauncher;
-        buildManager.ResetSelectedNode();
+        buildManager.DeselectNode();
 	}
 
 	public void SelectLaserBeamer()
 	{
         buildManager.TurretToBuild = laserBeamer;
-        buildManager.ResetSelectedNode();
+        buildManager.DeselectNode();
 	}
 }

@@ -17,7 +17,7 @@ public class BuildManager : MonoBehaviour
 
     public TurretBlueprint TurretToBuild { get; set; }
     Node nodeToSelect;
-    public NodeUI nodeUI;
+    public NodeUI nodeUI;  // assign the NodeUI object to this field
 
     public bool HasEnoughMoney
 	{
@@ -48,14 +48,22 @@ public class BuildManager : MonoBehaviour
 
 	public void SelectNode(Node node)
     {
+        if (nodeToSelect == node)
+        {
+            DeselectNode();
+            return;
+        }
+
         nodeToSelect = node;
         TurretToBuild = null;
 
         nodeUI.SetTarget(node);
     }
-	
-    public void ResetSelectedNode()
+
+    public void DeselectNode()
     {
         nodeToSelect = null;
+
+        nodeUI.Hide();
     }
 }
