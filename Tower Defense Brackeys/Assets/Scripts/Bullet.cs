@@ -5,10 +5,9 @@ public class Bullet : MonoBehaviour
     Transform target;
 
     public float speed = 70f;
+	public int damage = 50;
     public float explosionRadius;
     public GameObject impactEffect;
-
-    public int damage = 50;
 
     public void Seek(Transform target_)
     {

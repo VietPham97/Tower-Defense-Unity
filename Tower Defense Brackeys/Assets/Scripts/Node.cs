@@ -7,8 +7,11 @@ public class Node : MonoBehaviour
 	public Color notEnoughMoneyColor;
     public Vector3 positionOffset = new Vector3(0f, 0.5f, 0f);
 
-    [Header("Optional")]
+    [HideInInspector]
     public GameObject turret;
+    [HideInInspector]
+    public TurretBlueprint turretBlueprint;
+    public bool isUpgraded;
 
     Renderer rend;
     Color startColor;
@@ -47,21 +50,48 @@ public class Node : MonoBehaviour
         BuildTurret(buildManager.TurretToBuild);
     }
 
-    void BuildTurret(TurretBlueprint turretBlueprint)
+    void BuildTurret(TurretBlueprint turretBP)
     {
-        if (PlayerStats.Money < turretBlueprint.cost)
+        if (PlayerStats.Money < turretBP.cost)
 		{
 			Debug.LogWarning("Not enough money to build that tower!");
 			return;
 		}
 
-        PlayerStats.Money -= turretBlueprint.cost;
+        PlayerStats.Money -= turretBP.cost;
 
-        GameObject turretGO = Instantiate(turretBlueprint.prefab, GetBuildPosition(), Quaternion.identity) as GameObject;
+        GameObject turretGO = Instantiate(turretBP.prefab, GetBuildPosition(), Quaternion.identity) as GameObject;
 		turret = turretGO;
+
+        turretBlueprint = turretBP;
 
         GameObject bEffect = Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity) as GameObject;
 		Destroy(bEffect, 5f);
+    }
+
+    public void UpgradeTurret()
+    {
+		if (PlayerStats.Money < turretBlueprint.upgradeCost)
+		{
+			Debug.LogWarning("Not enough money to upgrade that tower!");
+			return;
+		}
+
+        PlayerStats.Money -= turretBlueprint.upgradeCost;
+
+        // Destroy the existing turret
+        Destroy(turret);
+
+        // Build the upgraded one
+        GameObject turretGO = Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity) as GameObject;
+		turret = turretGO;
+
+		GameObject bEffect = Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity) as GameObject;
+		Destroy(bEffect, 5f);
+
+        isUpgraded = true;
+
+        Debug.Log("Turret upgraded!");
     }
 
     private void OnMouseEnter()
