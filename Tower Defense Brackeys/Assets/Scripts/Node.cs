@@ -44,9 +44,25 @@ public class Node : MonoBehaviour
 		if (buildManager.TurretToBuild == null)
 			return;
 
-        buildManager.BuildTurretOn(this);
+        BuildTurret(buildManager.TurretToBuild);
     }
 
+    void BuildTurret(TurretBlueprint turretBlueprint)
+    {
+        if (PlayerStats.Money < turretBlueprint.cost)
+		{
+			Debug.LogWarning("Not enough money to build that tower!");
+			return;
+		}
+
+        PlayerStats.Money -= turretBlueprint.cost;
+
+        GameObject turretGO = Instantiate(turretBlueprint.prefab, GetBuildPosition(), Quaternion.identity) as GameObject;
+		turret = turretGO;
+
+        GameObject bEffect = Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity) as GameObject;
+		Destroy(bEffect, 5f);
+    }
 
     private void OnMouseEnter()
     {

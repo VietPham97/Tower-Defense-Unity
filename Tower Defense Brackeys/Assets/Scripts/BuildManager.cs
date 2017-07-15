@@ -15,7 +15,7 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
-    public TurretBlueprint TurretToBuild { get; set; }
+    public TurretBlueprint TurretToBuild { get; private set; }
     Node nodeToSelect;
     public NodeUI nodeUI;  // assign the NodeUI object to this field
 
@@ -26,25 +26,6 @@ public class BuildManager : MonoBehaviour
 			return PlayerStats.Money >= TurretToBuild.cost;
 		}
 	}
-
-    public void BuildTurretOn(Node node)
-    {
-        if (PlayerStats.Money < TurretToBuild.cost)
-        {
-            Debug.LogWarning("Not enough money to build that tower!");
-            return;
-        }
-
-        PlayerStats.Money -= TurretToBuild.cost;
-
-        GameObject turret = Instantiate(TurretToBuild.prefab, node.GetBuildPosition(), Quaternion.identity) as GameObject;
-        node.turret = turret;
-
-        GameObject bEffect = Instantiate(buildEffect, node.GetBuildPosition(), Quaternion.identity) as GameObject;
-        Destroy(bEffect, 5f);
-
-        //Debug.Log("Turret build! Money left: " + PlayerStats.Money);
-    }
 
 	public void SelectNode(Node node)
     {
@@ -63,7 +44,11 @@ public class BuildManager : MonoBehaviour
     public void DeselectNode()
     {
         nodeToSelect = null;
-
         nodeUI.Hide();
+    }
+
+    public void SelectTurretToBuild(TurretBlueprint turret)
+    {
+        TurretToBuild = turret;
     }
 }
