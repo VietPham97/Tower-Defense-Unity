@@ -4,6 +4,7 @@ public class BuildManager : MonoBehaviour
 {
     public static BuildManager instance;
     public GameObject buildEffect;
+	public GameObject sellEffect;
 
     private void Awake()
     {

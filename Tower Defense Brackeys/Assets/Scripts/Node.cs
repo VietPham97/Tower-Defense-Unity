@@ -98,7 +98,9 @@ public class Node : MonoBehaviour
     {
         PlayerStats.Money += turretBlueprint.SellAmount;
 
-        // Spawn a cool effect
+		// TODO Spawn a cool effect
+		GameObject sEffect = Instantiate(buildManager.sellEffect, GetBuildPosition(), Quaternion.identity) as GameObject;
+		Destroy(sEffect, 5f);
 
         Destroy(turret);
         turretBlueprint = null;
