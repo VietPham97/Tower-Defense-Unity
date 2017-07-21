@@ -5,16 +5,9 @@ public class MainMenu : MonoBehaviour
 {
     public string levelToLoad = "Game";
 
-    SceneFader fadeEffect;
-
-    private void Start()
-    {
-        fadeEffect = FindObjectOfType<SceneFader>();
-    }
-
     public void Play()
     {
-        fadeEffect.FadeTo(levelToLoad);
+        SceneFader.Instance.FadeTo(levelToLoad);
     }
 
     public void Quit()

@@ -5,6 +5,8 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI;
 
+    public string levelToLoad = "Menu";
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -30,11 +32,12 @@ public class PauseMenu : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneFader.Instance.FadeTo(SceneManager.GetActiveScene().name);
     }
 
     public void Menu()
     {
-        throw new UnityException("Need to implement");
+        Time.timeScale = 1f;
+        SceneFader.Instance.FadeTo(levelToLoad);
     }
 }

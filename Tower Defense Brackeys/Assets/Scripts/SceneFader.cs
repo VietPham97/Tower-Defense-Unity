@@ -5,11 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneFader : MonoBehaviour 
 {
+    public static SceneFader Instance { get; private set; }
     public Image img;
     public AnimationCurve curve;
 
     private void Start()
     {
+        if (Instance == null)
+            Instance = this;
+        
         StartCoroutine(FadeIn());
     }
 

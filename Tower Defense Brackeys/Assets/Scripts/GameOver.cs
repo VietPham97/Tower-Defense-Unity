@@ -6,6 +6,8 @@ public class GameOver : MonoBehaviour
 {
     public Text roundsSurvivedNumber; // Assign Rounds Survived Number to this field
 
+    public string menuScene = "Menu";
+
     private void OnEnable()
     {
         roundsSurvivedNumber.text = PlayerStats.Rounds.ToString();
@@ -13,11 +15,11 @@ public class GameOver : MonoBehaviour
 
     public void PlayAgain()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // reload the current scene
+        SceneFader.Instance.FadeTo(SceneManager.GetActiveScene().name);
     }
 
     public void MainMenu()
     {
-        Debug.Log("Go to Menu.");
+        SceneFader.Instance.FadeTo(menuScene);
     }
 }
