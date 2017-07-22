@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject gameOverUI; // Assign GameOverUI in the Hirerachy to this field in the Inspector
 
+    public string nextLevel = "Level02";
+    public int levelToUnlock = 2;
+
     private void Start()
     {
         gameOver = false;  // reset this to false because it is static and its value true will exist in the entire game
@@ -25,5 +28,12 @@ public class GameManager : MonoBehaviour
     {
         gameOver = true;
         gameOverUI.SetActive(true);
+    }
+
+    public void WinLevel()
+    {
+        Debug.LogWarning("LEVEL WON");
+        PlayerPrefs.SetInt("levelReached", levelToUnlock);
+        SceneFader.Instance.FadeTo(nextLevel);
     }
 }

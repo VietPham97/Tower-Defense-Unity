@@ -16,6 +16,7 @@ public class WaveSpawner : MonoBehaviour
 
     int waveIndex;  // default initialize to 0
 
+    public GameManager gameManager;
 
     private void Update()
     {
@@ -42,6 +43,8 @@ public class WaveSpawner : MonoBehaviour
 
         Wave wave = waves[waveIndex];
 
+        EnemiesAlive = wave.count;
+
         for (int i = 0; i < wave.count; i++)
         {
             SpawnEnemy(wave.enemy);
@@ -52,7 +55,7 @@ public class WaveSpawner : MonoBehaviour
 
         if (waveIndex == waves.Length)
         {
-            Debug.LogWarning("LEVEL WON");
+            gameManager.WinLevel();
             enabled = false;                // prevent waveIndex out of range
         }
     }
@@ -61,6 +64,5 @@ public class WaveSpawner : MonoBehaviour
     private void SpawnEnemy(GameObject enemy)
     {
         Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
-        EnemiesAlive++;
     }
 }
