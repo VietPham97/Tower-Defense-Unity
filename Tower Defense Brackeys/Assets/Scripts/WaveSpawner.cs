@@ -6,7 +6,7 @@ public class WaveSpawner : MonoBehaviour
 {
     public static int EnemiesAlive;
 
-    public Transform enemyPrefab;
+    public Wave[] waves;
     public Transform spawnPoint;
 
     public float timeBetweenWaves = 5f;
@@ -38,20 +38,29 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator SpawnWave()
     {
-        waveIndex++;
         PlayerStats.Rounds++;
 
-        for (int i = 0; i < waveIndex; i++)
+        Wave wave = waves[waveIndex];
+
+        for (int i = 0; i < wave.count; i++)
         {
-            SpawnEnemy();
-            yield return new WaitForSeconds(0.5f);  // TODO get rid of hard coding
+            SpawnEnemy(wave.enemy);
+            yield return new WaitForSeconds(1f / wave.rate);
+        }
+
+		waveIndex++;
+
+        if (waveIndex == waves.Length)
+        {
+            Debug.LogWarning("LEVEL WON");
+            enabled = false;                // prevent waveIndex out of range
         }
     }
 
 
-    private void SpawnEnemy()
+    private void SpawnEnemy(GameObject enemy)
     {
-        Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
         EnemiesAlive++;
     }
 }
