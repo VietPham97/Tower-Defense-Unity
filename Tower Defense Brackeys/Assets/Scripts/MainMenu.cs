@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour 
 {
-    public string levelToLoad = "Game";
+    public string levelToLoad = "LevelSelect";
 
     public void Play()
     {
